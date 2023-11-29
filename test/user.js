@@ -46,6 +46,7 @@ describe('user test', () => {
             return request.get(`users/${userid}?access-token=${token}`)
                 .then((res) => {
                     expect(res.body.id).to.be.eq(userid);
+                    expect(res.body).to.not.be.deep.equal({})
                 })
         })
 
@@ -85,7 +86,8 @@ describe('user test', () => {
                 .set('Authorization', `Bearer ${token}`)
                 .then((res) => {
                     // Use logical OR outside the expect statements
-                    expect(res.body).to.deep.equal({}) || expect(res.body).to.deep.equal({ "message": "Resource not found" });
+                    expect(res.body).to.deep.equal({})
+                    expect(res.body).to.deep.equal({ "message": "Resource not found" });
                 });
         });
     })
